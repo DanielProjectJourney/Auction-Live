@@ -4,9 +4,9 @@ import {Injectable} from '@angular/core';
 export class ProductService {
 
   private products : Product[] = [
-    new Product(1, 'Daniel', 1.99, 3.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(2, 'Chandler', 1.99, 2.5, "Google Deep Learning Framework", ["Book", "OpenSource"]),
-    new Product(3, 'Joe', 1.99, 1.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
+    new Product(1, 'daniel', 1.99, 3.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
+    new Product(2, 'chandler', 1.99, 2.5, "Google Deep Learning Framework", ["Book", "OpenSource"]),
+    new Product(3, 'joe', 1.99, 1.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(4, 'Tensorflow', 1.99, 4.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(5, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(6, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", ["Book", "OpenSource"])
