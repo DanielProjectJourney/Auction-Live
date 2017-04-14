@@ -4,9 +4,9 @@ import {Injectable} from '@angular/core';
 export class ProductService {
 
   private products : Product[] = [
-    new Product(1, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(2, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", ["Book", "OpenSource"]),
-    new Product(3, 'Tensorflow', 1.99, 1.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
+    new Product(1, 'Daniel', 1.99, 3.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
+    new Product(2, 'Chandler', 1.99, 2.5, "Google Deep Learning Framework", ["Book", "OpenSource"]),
+    new Product(3, 'Joe', 1.99, 1.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(4, 'Tensorflow', 1.99, 4.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(5, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
     new Product(6, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", ["Book", "OpenSource"])
@@ -16,7 +16,7 @@ export class ProductService {
     new Comment(1, 1, "2017-02-02 22:22:22", "张三", 3, "东西不错"),
     new Comment(2, 1, "2017-03-03 22:22:22", "李四", 4, "东西不错"),
     new Comment(3, 1, "2017-04-04 22:22:22", "王五", 5, "东西不错"),
-    new Comment(4, 4, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
+    new Comment(4, 2, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
   ];
 
   constructor() {}
