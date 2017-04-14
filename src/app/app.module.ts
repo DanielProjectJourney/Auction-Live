@@ -13,11 +13,12 @@ import { ProductComponent } from './product/product.component';
 import { StarsComponent } from './stars/stars.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HomeComponent } from './home/home.component';
+import { ProductService } from './shared/product.service';
 
 
 const routeConfig: Routes = [
   {path:'',component:HomeComponent},
-  {path:'product/:prodTitle/:prodPrice/:prodDesc', component:ProductDetailComponent}
+  {path:'product/:productId', component:ProductDetailComponent}
 ]
 
 @NgModule({
@@ -38,7 +39,7 @@ const routeConfig: Routes = [
     HttpModule,
     RouterModule.forRoot(routeConfig)
   ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,12 +16,12 @@ export class ProductService {
     new Comment(1, 1, "2017-02-02 22:22:22", "张三", 3, "东西不错"),
     new Comment(2, 1, "2017-03-03 22:22:22", "李四", 4, "东西不错"),
     new Comment(3, 1, "2017-04-04 22:22:22", "王五", 5, "东西不错"),
-    new Comment(4, 1, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
+    new Comment(4, 4, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
   ];
 
   constructor() {}
 
-  getProducts():Product[] {
+  getProducts() : Product[] {
     return this.products;
   }
 
@@ -31,8 +31,10 @@ export class ProductService {
       .find((product) => product.id == id);
   }
 
-  getCommentsForProductId(id:number): Comment[]{
-    return this.comments.filter((comment: Comment) => comment.productId ==id);
+  getCommentsForProductId(id : number) : Comment[] {
+    return this
+      .comments
+      .filter((comment : Comment) => comment.productId == id);
   }
 
 }

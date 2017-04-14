@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../shared/product.service';
 
 @Component({
   selector: 'app-product',
@@ -12,19 +13,10 @@ export class ProductComponent implements OnInit {
 
   private imgUrl = 'http://placehold.it/320x150';
 
-  constructor() { }
+  constructor(private productService:ProductService) { }
 
   ngOnInit() {
-
-   this.products = [
-     new Product(1,'Tensorflow',3.99,3.5,"Google Deep Learning Framework",["AI","OpenSource"]),
-     new Product(2,'Anuglar 4',6.99,2.5,"Google Deep Learning Framework",["Front-End","OpenSource"]),
-     new Product(3,'Keras',7.99,1.5,"Google Deep Learning Framework",["AI","OpenSource"]),
-     new Product(4,'Webpack',8.99,4.5,"Google Deep Learning Framework",["Front-End","OpenSource"]),
-     new Product(5,'Edward',10.99,2.5,"Google Deep Learning Framework",["AI","OpenSource"]),
-     new Product(6,'React',11.99,3.5,"Google Deep Learning Framework",["OpenSource"]),
-   ] 
-
+   this.products = this.productService.getProducts();
   }
 
 }
