@@ -4,12 +4,12 @@ import {Injectable} from '@angular/core';
 export class ProductService {
 
   private products : Product[] = [
-    new Product(1, 'daniel', 1.99, 3.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(2, 'chandler', 1.99, 2.5, "Google Deep Learning Framework", ["Book", "OpenSource"]),
-    new Product(3, 'joe', 1.99, 1.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(4, 'Tensorflow', 1.99, 4.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(5, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", ["AI", "OpenSource"]),
-    new Product(6, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", ["Book", "OpenSource"])
+    new Product(1, 'daniel', 1.99, 3.5, "Google Deep Learning Framework", ["mind", "physical"]),
+    new Product(2, 'chandler', 1.99, 2.5, "Google Deep Learning Framework", ["mind"]),
+    new Product(3, 'joe', 1.99, 1.5, "Google Deep Learning Framework", ["physical", "mind"]),
+    new Product(4, 'Tensorflow', 1.99, 4.5, "Google Deep Learning Framework", ["physical", "mind"]),
+    new Product(5, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", [ "fire"]),
+    new Product(6, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", [ "mind"])
   ];
 
   private comments : Comment[] = [
@@ -20,6 +20,10 @@ export class ProductService {
   ];
 
   constructor() {}
+
+  getAllCategories(): string[] {
+    return ["physical",'mind','fire'];
+  }
 
   getProducts() : Product[] {
     return this.products;
