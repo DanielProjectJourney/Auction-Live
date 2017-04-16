@@ -18,11 +18,16 @@ export class ProductComponent implements OnInit {
   private imgUrl = 'http://placehold.it/320x150';
 
   constructor(private productService:ProductService) { 
-  
+        
   }
 
   ngOnInit() {
    this.products = this.productService.getProducts();
+
+   this.productService.searchEvent.subscribe(
+    params => this.products = this.productService.search(params)
+   );
+
   }
 
 }

@@ -1,43 +1,60 @@
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import {Injectable} from '@angular/core';
+import {Http, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import {Injectable, EventEmitter} from '@angular/core';
 import 'rxjs/Rx';
-
 
 @Injectable()
 export class ProductService {
 
+ searchEvent: EventEmitter<ProductSearchParams> = new EventEmitter();
 
-  // private comments : Comment[] = [
-  //   new Comment(1, 1, "2017-02-02 22:22:22", "张三", 3, "东西不错"),
-  //   new Comment(2, 1, "2017-03-03 22:22:22", "李四", 4, "东西不错"),
-  //   new Comment(3, 1, "2017-04-04 22:22:22", "王五", 5, "东西不错"),
-  //   new Comment(4, 2, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
-  // ];
-
-  constructor(private http: Http) {}
+  constructor(private http : Http) {}
 
   getAllCategories() : string[] {
     return ["physical", 'mind', 'fire'];
   }
 
-  getProducts() : Observable<Product[]>{
-    return this.http.get("/api/products").map(res => res.json());
+  getProducts() : Observable < Product[] > {
+    return this
+      .http
+      .get("/api/")
+      .map(res => res.json());
   }
 
-  getProduct(id : number) : Observable<Product> {
-    return this.http.get("/api/product/" + id).map(res=>res.json());
+  getProduct(id : number) : Observable < Product > {
+    return this
+      .http
+      .get("/api/product/" + id)
+      .map(res => res.json());
   }
 
-  getCommentsForProductId(id : number) : Observable<Comment[]>{
-    return this.http.get("/api/product/"+id+"/comments").map(res=>res.json());
+  getCommentsForProductId(id : number) : Observable < Comment[] > {
+    return this
+      .http
+      .get("/api/product/" + id + "/comments")
+      .map(res => res.json());
   }
 
+  search(params: ProductSearchParams): Observable<Product[]> {
+    return this.http.get("/api/products",{search: this.encodeParams(params)}).map(res => res.json());
+  }
+
+  private encodeParams(params: ProductSearchParams) {
+  
+     return Object.keys(params)
+    .filter(key => params[key])
+    .reduce((sum:URLSearchParams, key:string) => {
+      sum.append(key,params[key]);
+      return sum;
+    }, new URLSearchParams());
+
+   
+  }
 
 }
 
 export class ProductSearchParams {
-  constructor(public title : string, public price : number, public category : string){}
+  constructor(public title : string, public price : number, public category : string) {}
 }
 
 export class Product {

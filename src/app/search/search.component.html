@@ -1,5 +1,5 @@
 <div>
-<form [formGroup]="formModel" (ngSubmit)="onSearch()" novalidate  name="searchForm" role="form">
+<form [formGroup]="formModel" (ngSubmit)="onSearch()" novalidate >
 
   <div class="form-group" [class.has-error]="formModel.hasError('minlength','title')">
     <label for="productTitle">Product Title</label>
@@ -13,7 +13,7 @@
     <label for="productTitle">Product Price</label>
     <input formControlName="price" type="number" id="productPrice" placeholder="Product Price" class="form-control">
      <span class="help-block" [class.hidden]="!formModel.hasError('positiveNumber','price')">
-      Are you kidding me!! Super Power is negtive???
+     No Positive!!!
     </span>
    </div>
 

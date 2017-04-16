@@ -17,8 +17,8 @@ export class Comment {
 }
 
 const products: Product[] = [
-  new Product(1, 'No1 Product', 1.99, 3.55, "This is the first product", ['book', 'Tech']),
-  new Product(2, 'No2 Product', 2.99, 2.5, "This is the second Product", ['book', 'Fashion']),
+  new Product(1, 'Wolverine', 1.99, 3.55, "This is the first product", ['physical', 'Tech']),
+  new Product(2, 'No2_Product', 2.99, 2.5, "This is the second Product", ['book', 'Fashion']),
   new Product(3, 'No3 Product', 3.99, 1.5, "This is the second Product", ['book', 'Fashion']),
   new Product(4, 'No4 Product', 4.99, 2.5, "This is the second Product", ['book', 'Fashion']),
   new Product(5, 'No5 Product', 5.99, 3.5, "This is the second Product", ['book', 'Fashion']),
@@ -34,13 +34,30 @@ const comments: Comment[] = [
 ];
 
 
-
 app.get('/api', (req, res) => {
   res.json(products);
 });
 
 app.get('/api/products', (req, res) => {
-  res.json(products);
+  let result = products;
+
+  let params = req.query;
+
+  console.log("I am here");
+  if(params.title){
+    result = result.filter((p) => p.title.indexOf(params.title) !== -1);
+  }
+
+  if(params.price && result.length > 0){
+    result = result.filter((p) => p.price <= parseInt(params.price));
+  }
+
+  if(params.category !== "-1" && result.length > 0)
+  {
+    result = result.filter((p) => p.categories.indexOf(params.category) !== -1);
+  }
+
+  res.json(result);
 });
 
 app.get('/api/product/:id', (req, res) => {
