@@ -1,6 +1,6 @@
 <div *ngFor="let product of products | async" class="col-md-4 col-sm-4 col-lg-4">
   <div class="thumbnail">
-    <img [src]="imgUrl" >
+    <img [src]="product.img" >
     <div class="caption">
       <h4 class="pull-right">{{product.price}}</h4>
       <h4><a [routerLink]="['/product',product.id]">{{product.title }}</a></h4>

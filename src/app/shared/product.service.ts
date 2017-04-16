@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private http : Http) {}
 
   getAllCategories() : string[] {
-    return ["physical", 'mind', 'fire'];
+    return ["power", 'mind'];
   }
 
   getProducts() : Observable < Product[] > {
