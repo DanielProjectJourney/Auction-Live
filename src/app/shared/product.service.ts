@@ -1,46 +1,43 @@
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import {Injectable} from '@angular/core';
+import 'rxjs/Rx';
+
 
 @Injectable()
 export class ProductService {
 
-  private products : Product[] = [
-    new Product(1, 'daniel', 1.99, 3.5, "Google Deep Learning Framework", ["mind", "physical"]),
-    new Product(2, 'chandler', 1.99, 2.5, "Google Deep Learning Framework", ["mind"]),
-    new Product(3, 'joe', 1.99, 1.5, "Google Deep Learning Framework", ["physical", "mind"]),
-    new Product(4, 'Tensorflow', 1.99, 4.5, "Google Deep Learning Framework", ["physical", "mind"]),
-    new Product(5, 'Tensorflow', 1.99, 2.5, "Google Deep Learning Framework", [ "fire"]),
-    new Product(6, 'Tensorflow', 1.99, 3.5, "Google Deep Learning Framework", [ "mind"])
-  ];
 
-  private comments : Comment[] = [
-    new Comment(1, 1, "2017-02-02 22:22:22", "张三", 3, "东西不错"),
-    new Comment(2, 1, "2017-03-03 22:22:22", "李四", 4, "东西不错"),
-    new Comment(3, 1, "2017-04-04 22:22:22", "王五", 5, "东西不错"),
-    new Comment(4, 2, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
-  ];
+  // private comments : Comment[] = [
+  //   new Comment(1, 1, "2017-02-02 22:22:22", "张三", 3, "东西不错"),
+  //   new Comment(2, 1, "2017-03-03 22:22:22", "李四", 4, "东西不错"),
+  //   new Comment(3, 1, "2017-04-04 22:22:22", "王五", 5, "东西不错"),
+  //   new Comment(4, 2, "2017-05-05 22:22:22", "赵六", 6, "东西不错")
+  // ];
 
-  constructor() {}
+  constructor(private http: Http) {}
 
-  getAllCategories(): string[] {
-    return ["physical",'mind','fire'];
+  getAllCategories() : string[] {
+    return ["physical", 'mind', 'fire'];
   }
 
-  getProducts() : Product[] {
-    return this.products;
+  getProducts() : Observable<Product[]>{
+    return this.http.get("/api/products").map(res => res.json());
   }
 
-  getProduct(id : number) : Product {
-    return this
-      .products
-      .find((product) => product.id == id);
+  getProduct(id : number) : Observable<Product> {
+    return this.http.get("/api/product/" + id).map(res=>res.json());
   }
 
-  getCommentsForProductId(id : number) : Comment[] {
-    return this
-      .comments
-      .filter((comment : Comment) => comment.productId == id);
+  getCommentsForProductId(id : number) : Observable<Comment[]>{
+    return this.http.get("/api/product/"+id+"/comments").map(res=>res.json());
   }
 
+
+}
+
+export class ProductSearchParams {
+  constructor(public title : string, public price : number, public category : string){}
 }
 
 export class Product {

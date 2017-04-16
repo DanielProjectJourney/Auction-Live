@@ -1,14 +1,14 @@
 <div class="thumbnail">
   <img src="http://placehold.it/820x230">
   <div>
-    <h4 class="pull-right">${{product.price}} </h4>
-    <h4> {{product.title}}</h4>
-    <p> {{product.desc}}</p>
+    <h4 class="pull-right">${{product?.price}} </h4>
+    <h4> {{product?.title}}</h4>
+    <p> {{product?.desc}}</p>
   </div>
   <div>
-    <p class="pull-right">{{comments.length}}</p>
+    <p class="pull-right">{{comments?.length}}</p>
     <p>
-      <app-stars [rating]="product.rating"></app-stars>
+      <app-stars [rating]="product?.rating"></app-stars>
     </p>
   </div>
 </div>
