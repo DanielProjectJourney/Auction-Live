@@ -3,7 +3,7 @@
 
   <div class="form-group" [class.has-error]="formModel.hasError('minlength','title')">
     <label for="productTitle">Nick Name</label>
-    <input formControlName="title" type="text" id="productTitle" placeholder="Product Title" class="form-control">
+    <input formControlName="title" type="text" id="productTitle" placeholder="Nick Name" class="form-control">
     <span class="help-block" [class.hidden]="!formModel.hasError('minlength','title')">
       At least 3 character!!!
     </span>
@@ -11,7 +11,7 @@
 
    <div class="form-group" [class.has-error]="formModel.hasError('positiveNumber','price')">
     <label for="productTitle"> Commission</label>
-    <input formControlName="price" type="number" id="productPrice" placeholder="Product Price" class="form-control">
+    <input formControlName="price" type="number" id="productPrice" placeholder="Price" class="form-control">
      <span class="help-block" [class.hidden]="!formModel.hasError('positiveNumber','price')">
      No Positive!!!
     </span>

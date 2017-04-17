@@ -14,6 +14,13 @@
   </div>
 </div>
 
+<div class="thumbnail"> 
+  <button class="btn btn-default btn-lg" [class.active]="isWatched"
+  (click)="watchProduct()">
+    {{isWatched? 'Cancel Subscribe': 'Subscribe'}}
+  </button>
+  <label >Last Price: ${{currentBid | number: '.2-2'}} </label>
+</div>
 
 
 <div class="well">

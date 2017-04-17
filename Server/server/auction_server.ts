@@ -1,7 +1,11 @@
 import * as express from 'express';
+import * as path from 'path';
 import {Server} from  'ws';
 
 const app = express();
+
+app.use('/', express.static(path.join(__dirname, '..', 'client')));
+//app.get('/', (req,res)=> res.send('Hello Auction'));
 
 export class Product {
   constructor(public id: number,
@@ -28,13 +32,14 @@ const products: Product[] = [
 ]
 
 const comments: Comment[] = [
-  new Comment(1, 1, "2017-02-02 22:22:22", "Daniel", 3, "He is my idot"),
+  new Comment(1, 1, "2017-02-02 22:22:22", "Daniel", 3, "He is my idol"),
   new Comment(2, 1, "2017-03-03 22:22:22", "Chandler", 4, "I agree with Daniel"),
   new Comment(3, 1, "2017-04-04 22:22:22", "Ryan", 5, "Good! Acutally, I am the same super power like him."),
   new Comment(4, 2, "2017-05-05 22:22:22", "Julian", 6, "Genius like me"),
-  new Comment(5, 5, "2020-02-02 20:20:20", "A kid", 0, "I think I can defeat him, even I am 5 years old");
-];
+  new Comment(5, 5, "2020-02-02 20:20:20", "A kid", 0, "I think I can defeat him, even I am 5 years old")
+]
 
+app.get('/',(req, res) => res.send('Hello Auction'));
 
 app.get('/api', (req, res) => {
   res.json(products);
@@ -74,19 +79,39 @@ const server = app.listen(8000, "localhost", () => {
   console.log("Server  Start, address: http://localhost:8000")
 });
 
+const subscriptions = new Map<any, number[]>();
+
 const wsServer = new Server({ port: 8085 });
 wsServer.on("connection", websocket => {
   websocket.send("这个消息是服务器主动推送的");
   websocket.on("message", message => {
-    console.log("Receive message:" + message)
+    let messageObj = JSON.parse(message);
+    let productIds = subscriptions.get(websocket) || [];
+    subscriptions.set(websocket, [...productIds, messageObj.productId]);
   })
 });
 
+const currentBids = new Map<number,number>();
+
 
 setInterval(() => {
-  if (wsServer.clients) {
-    wsServer.clients.forEach(client => {
-      client.send("This is time sender");
-    })
-  }
+
+  products.forEach( p => {
+    let currentBid = currentBids.get(p.id) || p.price;
+    let newBid = currentBid + Math.random() * 1000;
+    currentBids.set(p.id, newBid);
+  });
+
+  subscriptions.forEach((productIds: number[], ws) => {
+    if(ws.readyState === 1){
+      let newBids = productIds.map( pid => ({
+        product:pid,
+        bid: currentBids.get(pid)
+      }));
+      ws.send(JSON.stringify(newBids));
+    }else{
+      subscriptions.delete(ws);
+    }
+  });
+
 }, 2000);
